@@ -1,0 +1,11 @@
+root = /mnt/s3ql/data
+root = /volume
+
+batch = true
+group = true
+owner = true
+times = true
+prefer = /mnt/s3ql/data
+copyonconflict = true
+
+logfile = /dev/stdout
