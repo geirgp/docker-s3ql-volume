@@ -29,7 +29,6 @@ RUN mkdir /root/.s3ql && ln -s /mnt/s3ql/authinfo2 /root/.s3ql/authinfo2
 COPY *.prf /root/.unison/
 COPY bin/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*
-COPY s3ql.sh /etc/init.d/.
 
 VOLUME /mnt/s3ql
 
