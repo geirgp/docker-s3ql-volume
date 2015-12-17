@@ -4,7 +4,9 @@
 set -euo pipefail
 
 _term() {
-  echo "Caught SIGTERM or SIGKILL signal!"
+  echo "Final Sync of files"
+  /usr/local/bin/unison sync
+  echo "Unmounting filesystem..."
   /usr/bin/umount.s3ql /mnt/s3ql/data > /dev/stdout 2>&1
   exit
 }
@@ -26,12 +28,15 @@ elif [ ! -e /mnt/s3ql/authinfo2 ]; then
   chmod 600 /mnt/s3ql/authinfo2
 fi
 
-S3QL_URL=$STORAGE_URL$STORAGE_PATH
+if [[ ${AUTHORIZED_SYNC_KEY} != "" ]] ; then
+  echo "$AUTHORIZED_SYNC_KEY" | tee -a /root/.ssh/authorized_keys
+fi
 
-# ntpdate pool.ntp.org
+S3QL_URL=$STORAGE_URL$STORAGE_PATH
 
 if [[ "$1" == mount.s3ql* ]]; then
   echo "mounting drive..."
+  /usr/sbin/sshd
   /usr/bin/fsck.s3ql \
     --cachedir=/mnt/s3ql/cache \
     --authfile=/mnt/s3ql/authinfo2 \

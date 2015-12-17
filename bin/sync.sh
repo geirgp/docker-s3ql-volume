@@ -15,7 +15,7 @@ perl -pi -e "s!/volume!$VOLUME!g" /root/.unison/sync.prf
 
 echo "Initial Sync"
 cat /root/.unison/sync.prf
-/usr/bin/unison initialsync
+/usr/local/bin/unison initialsync
 
 echo "watching for changes..."
 while inotifywait -r -e $inotifywait_events $VOLUME ; do
@@ -25,6 +25,6 @@ while inotifywait -r -e $inotifywait_events $VOLUME ; do
   done
 
   echo "starting sync..."
-  /usr/bin/unison sync
+  /usr/local/bin/unison sync
   echo "sync complete."
 done
