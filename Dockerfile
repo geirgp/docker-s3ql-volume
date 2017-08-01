@@ -9,13 +9,13 @@ RUN apt-get update && \
        python-boto duplicity s3ql ssh fuse curl build-essential ruby ocaml-native-compilers exuberant-ctags && \
     gem install daemons faraday
 
-RUN curl -o unison.tar.gz -SL http://www.seas.upenn.edu/~bcpierce/unison//download/releases/stable/unison-2.48.3.tar.gz \
-  && tar -xzf unison.tar.gz -C / \
+RUN curl -o unison.tar.gz -SL http://www.seas.upenn.edu/~bcpierce/unison//download/releases/stable/unison-2.48.4.tar.gz \
+  && tar -xzf unison.tar.gz -C /tmp \
   && rm unison.tar.gz \
-  && cd /unison-2.48.3 \
+  && cd /tmp/src \
   && HOME=/usr/local make UISTYLE=text NATIVE=true install \
   && cd / \
-  && rm -rf /unison-2.48.3 \
+  && rm -rf /tmp/src \
   && unison -version
 
 RUN apt-get clean &&\
